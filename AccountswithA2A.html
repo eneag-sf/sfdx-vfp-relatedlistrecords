@@ -1,0 +1,67 @@
+<messaging:emailTemplate subject="SAP Account creation request"
+  recipientType="User"
+  relatedToType="Account"
+>
+  <messaging:htmlEmailBody >
+    <html>
+    <head>
+    <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 3px;
+}
+</style>
+</head>
+   <body>
+   <p style="font-family:Times">
+     <br>Dear sir/madam,</br>
+      
+     <br>The following account needs to be created in SAP together with the related A2A relationships.</br>
+     
+     <br>Below is all the relevant information that is needed.</br>
+     
+     <br>Account Name: {!Account.Name}</br>
+     <br>Salesforce Account ID: {!Account.Id}</br>
+     <br>Account Phone Number: {!Account.Phone}</br> 
+     <br>Account Industry: {!Account.Industry}</br>
+     <br>Account Industry: {!Account.VAT_Number__c}</br>   
+     
+     <br>In the table below are listed all accounts that have a relationship with the main Account above.</br>
+         
+        <table style="width:100%">
+          <tr>
+            <th align="left">
+              Account A Name
+            </th>
+            <th align="left">
+              Relationship
+            </th>
+            <th align="left">
+              Account B Name
+            </th>
+            <th align="left">
+              Currency
+            </th>
+          </tr>
+          <apex:repeat value="{!RelatedTo.A2ARelationship__c}" var="line">
+            <tr>
+              <td>
+                {!line.A2ARelationship__c.Account_A_Name__c}
+              </td>
+              <td>
+                {!line.A2ARelationship__c.Relationship__c}
+              </td>
+              <td>
+                {!line.A2ARelationship__c.Account_B_Name__c}
+              </td>
+            </tr>
+          </apex:repeat>
+        </table>
+        </p>
+      </body>
+    </html>
+  </messaging:htmlEmailBody>
+</messaging:emailTemplate>
